@@ -24,16 +24,24 @@ function handleError() {
 
 function addNews() {
   const data = JSON.parse(this.responseText);
+  // console.log(data.response.docs[0]);
   for(var i = 0; i < 5; i++){
     const article = data.response.docs[i];
     const title = article.headline.main;
     const snippet = article.snippet;
+    const url = article.web_url;
+    const img = article.multimedia[1].url;
 
     let li = document.createElement('li');
+    let enlace = document.createElement('a')
+    let image = document.createElement('img')
     li.className = 'articleClass';
-    li.innerText = snippet;
+    image.setAttribute('src','https://www.nytimes.com/' + img)
+    enlace.setAttribute('href',url);
+    enlace.innerText = snippet;
 
     responseContainer.appendChild(li);
+    li.appendChild(image);
+    li.appendChild(enlace);
   }
-
 }
